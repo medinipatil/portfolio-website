@@ -157,3 +157,23 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
   });
 }
+
+function sendMail(event) {
+  event.preventDefault(); // Prevents page reload
+
+  const params = {
+    from_name: document.getElementById("name").value,
+    email_id: document.getElementById("email").value,
+    message: document.getElementById("message").value,
+  };
+
+  emailjs.send("service_wqhfyaq", "template_wdv33th", params) // replace with your EmailJS IDs
+    .then(function(response) {
+      console.log("SUCCESS!", response.status, response.text);
+      document.getElementById("success-message").classList.remove("hidden");
+      document.getElementById("contactForm").reset();
+    }, function(error) {
+      console.error("FAILED...", error);
+      alert("Something went wrong: " + JSON.stringify(error));
+    });
+}
